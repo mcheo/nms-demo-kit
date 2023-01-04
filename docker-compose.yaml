@@ -1,0 +1,66 @@
+version: '3'
+services:
+    clickhouse:
+        image: clickhouse/clickhouse-server:21.12.4.1
+        hostname: clickhouse
+        ports:
+        - "8123:8123"
+        - "9000:9000"
+        volumes:
+            - clickhouse:/var/lib/clickhouse
+            - ./clickhouse-config/users.xml:/etc/clickhouse-server/users.xml
+            - ./clickhouse-config/config.xml:/etc/clickhouse-server/config.xml
+    nginx-nms:
+       image: nginx-nms:latest
+       hostname: nginx-nms
+       ports:
+        - "443:443"
+        - "6000:5000"
+       environment:
+        ### NGINX Instance Manager environment
+        - NIM_USERNAME=admin
+        - NIM_PASSWORD=admin
+        #- NIM_LICENSE="<BASE64_ENCODED_LICENSE_FILE>"
+
+        - NIM_CLICKHOUSE_ADDRESS=clickhouse
+        - NIM_CLICKHOUSE_PORT=9000
+        ### If username is not set to "default", the clickhouse-users ConfigMap in 0.clickhouse.yaml shall be updated accordingly
+        - NIM_CLICKHOUSE_USERNAME=default
+        ### If password is not set to "NGINXr0cks", the clickhouse-users ConfigMap in 0.clickhouse.yaml shall be updated accordingly
+        - NIM_CLICKHOUSE_PASSWORD=NGINXr0cks
+       depends_on:
+         - clickhouse
+    # httpbin-app:
+    #     image: kennethreitz/httpbin
+    #     environment:
+    #         - "GUNICORN_CMD_ARGS=\"--capture-output --error-logfile - --access-logfile - --access-logformat \"%(h)s %(t)s %(r)s %(s)s Host: %({Host}i)s}\"\""
+    #     expose:
+    #      - "80"
+    # nginx-lb:
+    #     image: npluswithagent:latest
+    #     hostname: nginx-lb
+    #     ports:
+    #     - "80:80"
+    #     - "8080:8080"
+    #     environment:
+    #      - NIM_HOST=nginx-nms
+    #      - NIM_GRPC_PORT=443
+    # nginx-gw:
+    #     image: npluswithagent:latest
+    #     hostname: nginx-gw
+    #     deploy:
+    #         replicas: 2
+    #     environment:
+    #      - NIM_HOST=nginx-nms
+    #      - NIM_GRPC_PORT=443
+    #      - NIM_INSTANCEGROUP=gwcluster
+    # nginx-nap:
+    #     image: napwithagent:latest
+    #     hostname: nginx-nap
+    #     ports:
+    #     - "83:80"
+    #     environment:
+    #      - NIM_HOST=nginx-nms
+    #      - NIM_GRPC_PORT=443
+volumes:
+    clickhouse:  
