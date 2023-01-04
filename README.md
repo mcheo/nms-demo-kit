@@ -21,6 +21,8 @@ For demonstration, we will build a demo setup of 1 LB fronting API gateway clust
 #Clone the repo
 git clone https://github.com/mcheo-nginx/nms-demo-kit
 
+cd nms-demo-kit
+
 #Make the script executable
 chmod 755 -R ./scripts/
 
@@ -112,7 +114,6 @@ curl localhost/get
 curl localhost/headers
 
 ```
-
 ## Bonus
 Instead of using NGINX Plus as LB, you may use NGINX App Protect (NAP) as LB + WAF to protect the API endpoints
 At the time of writing, it is possible to manage NAP policies via NMS in VM setup but not in docker container. Hence, we will just manually create NAP policies in NGINX NAP instance and then manage the nginx.conf via NMS.
@@ -134,5 +135,8 @@ Configure NAP in Instance Manager
 
 ```
 #Send traffic to NAP
-curl localhost:83/
+curl localhost:83/get
+
+#Violation
+curl "localhost:83/get?<script>"
 ```
