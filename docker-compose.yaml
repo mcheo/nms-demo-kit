@@ -15,7 +15,7 @@ services:
        hostname: nginx-nms
        ports:
         - "443:443"
-        - "6000:5000"
+        - "5000:5000"
        environment:
         ### NGINX Instance Manager environment
         - NIM_USERNAME=admin
