@@ -8,7 +8,7 @@ This demo kit can be used to easily step up NGINX Management Suites-NMS with var
 
 For demonstration, we will build a demo setup of 1 LB fronting API gateway clusters which connect to the API endpoints
 
-![alt text](demo-setup.png)
+![alt text](demo-setup-v2.png)
 
 ## Prerequisite: 
 - Install docker and docker-compose in your machine
