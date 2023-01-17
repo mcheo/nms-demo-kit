@@ -12,7 +12,7 @@ COPY ./nginx-plus/nginx-repo.crt /etc/ssl/nginx/
 COPY ./nginx-plus/nginx-repo.key /etc/ssl/nginx/
 
 # Install prerequisite packages:
-RUN apt-get update && apt-get install -y apt-transport-https lsb-release ca-certificates wget gnupg2 curl
+RUN apt-get update && apt-get install -y apt-transport-https lsb-release ca-certificates wget gnupg2 curl vim
 
 # Agent installation
 RUN bash -c 'curl -k $NMS_URL/install/nginx-agent | sh' && echo "Agent installed from NMS"
