@@ -114,6 +114,12 @@ curl localhost/get
 curl localhost/headers
 
 ```
+Tips: For step 5, you may choose to use the script to automate ACM configuration.  
+```
+sh misc/end2end_deploy.sh
+sh misc/end2end_delete.sh
+```
+
 ## Bonus
 Instead of using NGINX Plus as LB, you may use NGINX App Protect (NAP) as LB + WAF to protect the API endpoints
 At the time of writing, it is possible to manage NAP policies via NMS in VM setup but not in docker container. Hence, we will just manually create NAP policies in NGINX NAP instance and then manage the nginx.conf via NMS.
