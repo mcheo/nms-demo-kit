@@ -54,6 +54,9 @@ Use browser to visit https://localhost, login with admin/admin credentials or wh
 Click on Settings and upload the NMS trial license.
 ![alt text](assets/nms-license.png)
 
+Click on the browser Refresh button for the page to display availalble modules.
+
+
 3. **Start NGINX Plus**
 ```
 #Build NGINX Plus image with nginx-agent
