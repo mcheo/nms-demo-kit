@@ -1,5 +1,3 @@
-
-
 ## Credit
 This repo leveraged the work done by fantastic [Fabrizio](https://github.com/fabriziofiorucci) at https://github.com/nginxinc/NGINX-Demos/tree/master/nginx-nms-docker
 
@@ -56,7 +54,6 @@ Click on Settings and upload the NMS trial license.
 
 Click on the browser Refresh button for the page to display availalble modules.
 
-
 3. **Start NGINX Plus**
 ```
 #Build NGINX Plus image with nginx-agent
@@ -94,6 +91,15 @@ We have configured NGINX load balancer to return backend server's IP address. Th
 
 ![alt text](assets/lb-curl-testing.png)
 
+
+5. **Configure API Gateway using ACM**
+
+Tips: For step 5, you may choose to use the script to automate ACM configuration. However, you are encouraged to manually execute the steps below to be familiar with the ACM workflow.
+```
+#sh misc/end2end_deploy.sh
+#sh misc/end2end_delete.sh
+```
+
 Enable API Gateway Cluster
 
 - In API Connectivity Manager, Infrastructure, create a Workspace, an Environment. In the Environment tab, add API Gateway Cluster. You may fill in any mock details, but the Name of the API Gateway Clusters must be same with the instance group name you specify for the nginx-gw in docker-compose file, in this case "gwcluster"
@@ -110,15 +116,6 @@ By scaling the nginx-gw instances, the newly spin up instance will auto register
 # Edit docker-compose file, under nginx-gw section, change the replicas to 3
 docker-compose -f docker-compose.yaml up -d
 ```
-
-5. **Configure API Gateway using ACM**
-
-Tips: For step 5, you may choose to use the script to automate ACM configuration. However, you are encouraged to manually execute the steps below to be familiar with the ACM workflow.
-```
-#sh misc/end2end_deploy.sh
-#sh misc/end2end_delete.sh
-```
-
 
 - Under API Connectivity Manager, Services, create a Workspace, Publish API Proxy
 ```    
