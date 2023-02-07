@@ -1,3 +1,6 @@
+Note: If you are doing lab in F5 UDF - NGINX Workshop Sandpit blueprint, please follow this guide instead https://github.com/mcheo-nginx/nms-demo-kit/blob/main/README_UDF.md
+
+
 ## Credit
 This repo leveraged the work done by fantastic [Fabrizio](https://github.com/fabriziofiorucci) at https://github.com/nginxinc/NGINX-Demos/tree/master/nginx-nms-docker
 
@@ -11,7 +14,6 @@ For demonstration, we will build a demo setup of 1 LB fronting API gateway clust
 ## Prerequisite: 
 - Install docker and docker-compose in your machine
 - In [NGINX website](https://www.nginx.com/pricing/) request for NGINX Plus and NGINX Management Suite trial licenses
-
 
 ## Getting started
 1. **Start NMS**
