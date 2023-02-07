@@ -128,7 +128,7 @@ Optional:
 By scaling the nginx-gw instances, the newly spin up instance will auto register as part of the API Gateway Cluster instance group. You will notice additional instance in the Instances section.
 ```
 # Edit docker-compose file, under nginx-gw section, change the replicas to 3
-docker-compose -f docker-compose.yaml up -d
+sudo docker compose -f docker-compose.yaml up -d
 ```
 
 - Under API Connectivity Manager, Services, create a Workspace, Publish API Proxy
