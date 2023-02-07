@@ -1,5 +1,5 @@
 
-# This version of README is for F5 UDF lab (NGINX Workshop Sandpit blueprint), as the commands used are slighlty different.
+This version of README is for F5 UDF lab (NGINX Workshop Sandpit blueprint), as the commands used are slighlty different.
 
 ## Credit
 This repo leveraged the work done by fantastic [Fabrizio](https://github.com/fabriziofiorucci) at https://github.com/nginxinc/NGINX-Demos/tree/master/nginx-nms-docker
@@ -17,6 +17,15 @@ For demonstration, we will build a demo setup of 1 LB fronting API gateway clust
 
 
 ## Getting started
+0. **Access Lab Environment
+After starting NGINX Workshop Sandpit blueprint, access vscode app via Ubuntu->vscode
+![alt text](assets/access_vscode.png)
+
+Access the terminal in VSCode
+![alt text](assets/launch_terminal_in_vscode.png)
+
+
+
 1. **Start NMS**
 ```
 #Clone the repo
@@ -32,22 +41,24 @@ cp nginx-repo.* nginx-plus/
 
 #Build NMS (NGINX Instance Manager, API Connectivity Manager) container image
 #Example build with the latest release
-./scripts/buildNMS.sh -t nginx-nms -i -C nginx-plus/nginx-repo.crt -K nginx-plus/nginx-repo.key -A -W
+sudo ./scripts/buildNMS.sh -t nginx-nms -i -C nginx-plus/nginx-repo.crt -K nginx-plus/nginx-repo.key -A -W
 
 #Or build with specific version
 #You may edit Dockerfile to specify the .deb package version for the required modules
-#./scripts/buildNMS.sh -t nginx-nms:2.6 -C nginx-plus/nginx-repo.crt -K nginx-plus/nginx-repo.key -A -W
+#sudo ./scripts/buildNMS.sh -t nginx-nms:2.6 -C nginx-plus/nginx-repo.crt -K nginx-plus/nginx-repo.key -A -W
 
 #To deploy NMS container
 #Running in MacOS might encounter port 5000 being used by AirPlay sharing process. 
 #You may change the port to other than 5000 in docker-compose.yaml eg: - "6000:5000"
 
-docker-compose -f docker-compose.yaml up -d
+sudo docker compose -f docker-compose.yaml up -d
 ```
 
 2. **Access NMS GUI**
 
-Use browser to visit https://localhost, login with admin/admin credentials or whatever you specify in the docker-compose.yaml
+After few momemnt, click on Ubuntu -> HTTP-443 to access the NMS. login with admin/admin credentials or whatever you specify in the docker-compose.yaml
+
+![alt text](assets/access_nms_vis_http_443.png)
 ![alt text](assets/nms_prelogin_landing_page.png)
 ![alt text](assets/nms_login_prompt.png)
 
@@ -61,15 +72,15 @@ Click on the browser Refresh button for the page to display availalble modules.
 ```
 #Build NGINX Plus image with nginx-agent
 #Specify NMS IP address (your laptop IP address), DO NOT use localhost or 127.0.0.1
-./scripts/buildNPlusWithAgent.sh -t npluswithagent -n https://192.168.1.3
+sudo ./scripts/buildNPlusWithAgent.sh -t npluswithagent -n https://10.1.1.6
 
 #Uncomment nginx-lb, nginx-gw, httpbin-app section in docker-compose.yaml section
-docker-compose -f docker-compose.yaml up -d
+sudo docker compose -f docker-compose.yaml up -d
 ```
 You should have these number of containers running
 ![alt text](assets/running-containers.png)
 
-On NMS Instance Manager dashboard, you should see these instances
+For the first time, click browser refresh. On NMS Instance Manager dashboard, you should see these instances
 ![alt text](assets/nim-managed-instances.png)
 
 
@@ -149,6 +160,7 @@ curl -v localhost/get
 curl -v localhost/headers
 ```
 
+You may try to configure different policies in ACM and see how it work.
 
 ## Bonus
 Instead of using NGINX Plus as LB, you may use NGINX App Protect (NAP) as LB + WAF to protect the API endpoints.
@@ -159,11 +171,12 @@ At the time of this writing, it is possible to manage NAP policies via NMS in VM
 ```
 #Build NGINX App Protect image with nginx-agent
 #Specify NMS IP address (your laptop IP address), DO NOT use localhost or 127.0.0.1
-./scripts/buildNAPWithAgent.sh -t napwithagent -n https://192.168.1.3
+sudo ./scripts/buildNAPWithAgent.sh -t napwithagent -n https://10.1.1.6
 
 #Uncomment nginx-nap section in docker-compose.yaml section
-docker-compose -f docker-compose.yaml up -d
+sudo docker compose -f docker-compose.yaml up -d
 ```
+NGINX NAP takes slightly more time to start up, wait for it.
 
 Configure NAP in Instance Manager
 
