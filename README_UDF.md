@@ -9,7 +9,7 @@ This demo kit can be used to easily step up NGINX Management Suites-NMS with var
 
 For demonstration, we will build a demo setup of 1 LB fronting API gateway clusters which connect to the API endpoints
 
-![alt text](assets/demo-setup-part1.png)
+![alt text](assets/demo-setup-part-1.png)
 
 ## Prerequisite: 
 - Install docker and docker-compose in your machine
@@ -82,7 +82,7 @@ sudo ./scripts/buildNPlusWithAgent.sh -t npluswithagent:devportal -D -n https://
 sudo docker compose -f docker-compose.yaml up -d
 ```
 You should have these number of containers running
-![alt text](assets/running-containers.png)
+![alt text](assets/running-containers-new.png)
 
 For the first time, click browser refresh. On NMS Instance Manager dashboard, you should see these instances
 ![alt text](assets/nim-managed-instances.png)
@@ -178,7 +178,9 @@ The Name of the Dev Portal Clusters must be same with the instance group name yo
 
 ![alt text](assets/publish-devportal.png)
 
-- In UDF, you create additional Access method ubuntu server for port 90 Use browser to visit http://localhost:90 which is the Dev Portal container IP/Port
+- In UDF, you create additional Access method ubuntu server for port 90 and click access.
+
+![alt text](assets/udf-access-http90.png)
 
 ![alt text](assets/sample-devportal.png)
 
@@ -186,7 +188,7 @@ The Name of the Dev Portal Clusters must be same with the instance group name yo
 Instead of using NGINX Plus as LB, you may use NGINX App Protect (NAP) as LB + WAF to protect the API endpoints.
 At the time of this writing, it is possible to manage NAP policies via NMS in VM setup but not in docker container. Hence, we will just manually create NAP policies in NGINX NAP instance and then manage the nginx.conf via NMS.
 
-![alt text](assets/demo-setup-part2.png)
+![alt text](assets/demo-setup-part-2.png)
 
 ```
 #Build NGINX App Protect image with nginx-agent
