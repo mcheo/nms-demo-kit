@@ -4,6 +4,10 @@
 nginx
 sleep 2
 
+if [ ! -z "$ACM_DEVPORTAL" ] && [ $ACM_DEVPORTAL == "true" ]; then
+   nginx-devportal server &
+fi
+
 PARM="--server-grpcport $NIM_GRPC_PORT --server-host $NIM_HOST"
 
 if [[ ! -z "$NIM_INSTANCEGROUP" ]]; then
@@ -15,3 +19,4 @@ if [[ ! -z "$NIM_TAGS" ]]; then
 fi
 
 nginx-agent $PARM
+
