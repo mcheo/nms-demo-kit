@@ -41,6 +41,8 @@ curl --location -k --request POST 'https://127.0.0.1/api/acm/v1/services/workspa
     "name":"my_proxy_workspace"
 }'
 
+sleep $sleep_counter
+
 # Upload API Docs
 curl --location -k --request POST 'https://127.0.0.1/api/acm/v1/services/workspaces/my_proxy_workspace/api-docs' \
 --header 'Accept: application/json' \
@@ -1053,6 +1055,8 @@ curl --location -k --request POST 'https://127.0.0.1/api/acm/v1/services/workspa
     }
   }
 }'
+
+sleep $sleep_counter
 
 # Create Service Proxy
 curl --location -k --request POST 'https://127.0.0.1/api/acm/v1/services/workspaces/my_proxy_workspace/proxies' \
