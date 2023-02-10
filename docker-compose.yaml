@@ -21,7 +21,6 @@ services:
         - NIM_USERNAME=admin
         - NIM_PASSWORD=admin
         #- NIM_LICENSE="<BASE64_ENCODED_LICENSE_FILE>"
-
         - NIM_CLICKHOUSE_ADDRESS=clickhouse
         - NIM_CLICKHOUSE_PORT=9000
         ### If username is not set to "default", the clickhouse-users ConfigMap in 0.clickhouse.yaml shall be updated accordingly
@@ -54,6 +53,16 @@ services:
     #      - NIM_HOST=nginx-nms
     #      - NIM_GRPC_PORT=443
     #      - NIM_INSTANCEGROUP=gwcluster
+    # acm.nginx-devportal:
+    #     image: npluswithagent:devportal
+    #     hostname: nginx-devportal
+    #     ports:
+    #      - "90:80"
+    #     environment:
+    #      - NIM_HOST=nginx-nms
+    #      - NIM_GRPC_PORT=443
+    #      - NIM_INSTANCEGROUP=devportal
+    #      - ACM_DEVPORTAL=true
     # nginx-nap:
     #     image: napwithagent:latest
     #     hostname: nginx-nap
