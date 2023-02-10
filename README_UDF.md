@@ -74,7 +74,11 @@ Click on the browser Refresh button for the page to display availalble modules.
 #Specify NMS IP address (your laptop IP address), DO NOT use localhost or 127.0.0.1
 sudo ./scripts/buildNPlusWithAgent.sh -t npluswithagent -n https://10.1.1.6
 
-#Uncomment nginx-lb, nginx-gw, httpbin-app section in docker-compose.yaml section
+#Build NGINX Plus (ACM Dev-Portal) image with nginx-agent
+#Specify NMS IP address (your laptop IP address), DO NOT use localhost or 127.0.0.1
+sudo ./scripts/buildNPlusWithAgent.sh -t npluswithagent:devportal -D -n https://10.1.1.6
+
+#Uncomment nginx-lb, nginx-gw, httpbin-app, acm.nginx-devportal section in docker-compose.yaml section
 sudo docker compose -f docker-compose.yaml up -d
 ```
 You should have these number of containers running
@@ -161,6 +165,22 @@ curl -v localhost/headers
 ```
 
 You may try to configure different policies in ACM and see how it work.
+
+6. **Configure Dev Portal using ACM**
+
+Enable Dev Portal Cluster
+- In the previously created API Connectivity Manager->Infrastructure->Workspace->Environment. Inside the environment, Create Developer Portal Cluster.
+The Name of the Dev Portal Clusters must be same with the instance group name you specify for the acm.nginx-devportal, in this case "devportal".
+
+![alt text](assets/create-devportal-cluster.png)
+
+- In the previously created API Connectivity Manager->Services-API Proxies, Tick "Also publish API to developer portal"
+
+![alt text](assets/publish-devportal.png)
+
+- In UDF, you create additional Access method ubuntu server for port 90 Use browser to visit http://localhost:90 which is the Dev Portal container IP/Port
+
+![alt text](assets/sample-devportal.png)
 
 ## Bonus
 Instead of using NGINX Plus as LB, you may use NGINX App Protect (NAP) as LB + WAF to protect the API endpoints.
