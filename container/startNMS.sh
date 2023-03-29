@@ -25,6 +25,7 @@ then
 	python3 /deployment/app.py &
 fi
 
+chmod 755 /etc/nms/scripts/basic_passwords.sh
 /etc/nms/scripts/basic_passwords.sh $NIM_USERNAME $NIM_PASSWORD
 
 # NGINX Management Suite version detection
