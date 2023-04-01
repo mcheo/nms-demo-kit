@@ -24,7 +24,7 @@ git clone https://github.com/mcheo-nginx/nms-demo-kit
 cd nms-demo-kit
 
 #Make the script executable
-chmod 755 -R ./scripts/
+chmod 755 ./scripts/*
 
 #Download NGINX Plus trial license and put nginx-repo.crt and nginx-repo.key in nginx-plus folder
 cp nginx-repo.* nginx-plus/
