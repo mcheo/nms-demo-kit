@@ -1,5 +1,7 @@
 Note: If you are doing lab in F5 UDF - NGINX Workshop Sandpit blueprint, please follow this guide instead https://github.com/mcheo-nginx/nms-demo-kit/blob/main/README_UDF.md
 
+Note: As of this writing, only NIM is supported in ARM processor but not the other modules (ADM, ACM, SM)
+
 ## Credit
 This repo leveraged the work done by fantastic [Fabrizio](https://github.com/fabriziofiorucci) at https://github.com/nginxinc/NGINX-Demos/tree/master/nginx-nms-docker
 
