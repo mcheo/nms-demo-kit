@@ -1,3 +1,4 @@
+Note: As of this writing, only NIM is supported in ARM processor but not the other modules (ADM, ACM, SM)
 
 ## This version of README is for F5 UDF lab (NGINX Workshop Sandpit blueprint), as the commands used are slighlty different.
 
