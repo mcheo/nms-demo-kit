@@ -1,4 +1,4 @@
-Note: If you are doing lab in F5 UDF - NGINX Workshop Sandpit blueprint, please follow this guide instead https://github.com/mcheo-nginx/nms-demo-kit/blob/main/README_UDF.md
+Note: If you are doing lab in F5 UDF - NGINX Workshop Sandpit blueprint, please follow this guide instead https://github.com/mcheo/nms-demo-kit/blob/main/README_UDF.md
 
 Note: As of this writing, only NIM is supported in ARM processor but not the other modules (ADM, ACM, SM)
 
@@ -21,7 +21,7 @@ For demonstration, we will build a demo setup of 1 LB fronting API gateway clust
 1. **Start NMS**
 ```
 #Clone the repo
-git clone https://github.com/mcheo-nginx/nms-demo-kit
+git clone https://github.com/mcheo/nms-demo-kit
 
 cd nms-demo-kit
 
