@@ -30,7 +30,7 @@ Access the terminal in VSCode
 1. **Start NMS**
 ```
 #Clone the repo
-git clone https://github.com/mcheo-nginx/nms-demo-kit
+git clone https://github.com/mcheo/nms-demo-kit
 
 cd nms-demo-kit
 
