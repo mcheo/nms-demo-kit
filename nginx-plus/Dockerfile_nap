@@ -1,4 +1,7 @@
-FROM debian:buster-slim
+# syntax=docker/dockerfile:1
+# For Ubuntu 20.04:
+FROM ubuntu:focal
+
 ARG NMS_URL
 
 # NGINX Instance Manager agent setup
@@ -17,30 +20,25 @@ RUN apt-get update && apt-get install -y apt-transport-https lsb-release ca-cert
 # Agent installation
 RUN bash -c 'curl -k $NMS_URL/install/nginx-agent | sh' && echo "Agent installed from NMS"
 
+
 # Download and add the NGINX signing keys:
 RUN wget https://cs.nginx.com/static/keys/nginx_signing.key && apt-key add nginx_signing.key \
     && wget https://cs.nginx.com/static/keys/app-protect-security-updates.key && apt-key add app-protect-security-updates.key
 
 # Add NGINX Plus repository:
-RUN printf "deb https://pkgs.nginx.com/plus/debian `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/nginx-plus.list
+RUN printf "deb https://pkgs.nginx.com/plus/ubuntu `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/nginx-plus.list
 
 # Add NGINX App Protect WAF repositories:
-RUN printf "deb https://pkgs.nginx.com/app-protect/debian `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/nginx-app-protect.list \
-    && printf "deb https://pkgs.nginx.com/app-protect-security-updates/debian `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/app-protect-security-updates.list \
-    && echo "Acquire::https::pkgs.nginx.com::Verify-Peer \"true\";" >> /etc/apt/apt.conf.d/90nginx \
-    && echo "Acquire::https::pkgs.nginx.com::Verify-Host \"true\";" >> /etc/apt/apt.conf.d/90nginx \
-    && echo "Acquire::https::pkgs.nginx.com::SslCert     \"/etc/ssl/nginx/nginx-repo.crt\";" >> /etc/apt/apt.conf.d/90nginx \
-    && echo "Acquire::https::pkgs.nginx.com::SslKey      \"/etc/ssl/nginx/nginx-repo.key\";" >> /etc/apt/apt.conf.d/90nginx \
-    && printf "deb https://pkgs.nginx.com/plus/debian buster nginx-plus\n" > /etc/apt/sources.list.d/nginx-plus.list \
-    && apt-get update
+RUN printf "deb https://pkgs.nginx.com/app-protect/ubuntu `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/nginx-app-protect.list \
+    && printf "deb https://pkgs.nginx.com/app-protect-security-updates/ubuntu `lsb_release -cs` nginx-plus\n" | tee /etc/apt/sources.list.d/app-protect-security-updates.list
 
 # Download the apt configuration to `/etc/apt/apt.conf.d`:
 RUN wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90pkgs-nginx
 
-RUN apt-get install -y "nginx-plus-module-njs"
-
 # Update the repository and install the most recent version of the NGINX App Protect WAF package (which includes NGINX Plus):
-RUN apt-get update && apt-get install -y app-protect
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y app-protect
+
+RUN apt-get install -y "nginx-plus-module-njs"
 
 # Forward request logs to Docker log collector:
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
@@ -52,10 +50,6 @@ COPY ./nginx-plus/container/nginx_nap.conf /etc/nginx/nginx.conf
 # Copy NAP log profile for SM monitoring :
 COPY ./nginx-plus/container/log_sm.json /etc/app_protect/conf/log_sm.json
 
-# Forward request logs to Docker log collector
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
- 
 EXPOSE 80
 
 STOPSIGNAL SIGTERM
